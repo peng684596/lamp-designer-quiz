@@ -359,11 +359,24 @@ function render(options = {}) {
 
 /* ------------------------------- 启动 --------------------------------- */
 
+/**
+ * 页头品牌只放题库简称：完整赛项名在首页大标题里，页头放全名会被截断成「灯具设…」。
+ * 规则：去掉「第X届…大赛」这类前缀，取最后一段；仍过长时按字符截断。
+ */
+function brandLabel(title) {
+  const full = String(title || '').trim();
+  if (!full) return '题库';
+  const parts = full.split(/\s+/);
+  const tail = parts.length > 1 ? parts[parts.length - 1] : full;
+  const label = tail.length >= 4 && tail.length < full.length ? tail : full;
+  return label.length > 14 ? `${label.slice(0, 13)}…` : label;
+}
+
 function updateBrand() {
   const brandTitle = document.getElementById('brand-title');
   const brandSubtitle = document.getElementById('brand-subtitle');
   const footerTotal = document.getElementById('footer-total');
-  if (brandTitle) brandTitle.textContent = state.meta.title;
+  if (brandTitle) brandTitle.textContent = brandLabel(state.meta.title);
   const usableTotal = state.meta.usableTotal || state.practicable.length;
   if (brandSubtitle) {
     const chapterText = state.chapters.filter((chapter) => chapter.id !== 'misc' || state.chapters.length === 1).length;
