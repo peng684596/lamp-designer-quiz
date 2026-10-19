@@ -16,7 +16,10 @@
         var target = root + location.search + location.hash;
         // 避免死循环：如果已经停在根路径，就直接渲染提示而不是再跳一次
         if (base === root) {
-          document.getElementById('fallback').hidden = false;
+          document.addEventListener('DOMContentLoaded', function () {
+            var box = document.getElementById('fallback');
+            if (box) box.hidden = false;
+          });
           return;
         }
         location.replace(target);
