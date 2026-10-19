@@ -2,6 +2,8 @@
 
 第四届全国工业设计职业技能大赛山东省选拔赛「灯具设计师」项目的理论题库刷题站。纯静态页面，原生 HTML + CSS + ES Modules，**零依赖、零构建**，直接部署到 GitHub Pages 仓库根目录即可使用。
 
+**线上地址：<https://peng684596.github.io/lamp-designer-quiz/>**
+
 ## 本地预览
 
 ```bash
@@ -58,7 +60,17 @@ tools/                题库解析脚本（构建期使用，站点运行时不�
 
 ## 部署
 
-把仓库推送到 GitHub，在仓库 Settings → Pages 中选择从 `main` 分支根目录发布即可。站点内所有路径均为相对路径，`https://<user>.github.io/<repo>/` 这类子路径可以直接工作；路由使用 hash（`#/chapters` 等），不需要服务器做 rewrite。
+当前已部署：仓库 `main` 分支根目录 → GitHub Pages，地址 <https://peng684596.github.io/lamp-designer-quiz/>。站点内所有路径均为相对路径，`https://<user>.github.io/<repo>/` 这类子路径可以直接工作；路由使用 hash（`#/chapters` 等），不需要服务器做 rewrite。
+
+更新题库或改动代码后：
+
+```bash
+git add -A && git commit -m "更新题库" && git push
+```
+
+推送后 GitHub Pages 会在 1 分钟左右自动重新发布。
+
+> 本机 git 全局配置里有一个指向 `127.0.0.1:23501` 的 GitHub 代理，该端口未监听会导致 `push` 报 `Failed to connect to github.com:443 over proxy`。本仓库已在 `.git/config` 里用空代理覆盖处理（`[http "https://github.com"] proxy = `）；若换机器推送失败，用 `git -c http.https://github.com.proxy= push` 可绕过。
 
 ## 数据来源与许可
 
